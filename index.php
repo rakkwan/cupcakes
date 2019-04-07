@@ -24,27 +24,33 @@
 
         </div>
         <p>Cupcake flavors:</p>
-        <p><input type="checkbox" name="flavors[]" value="The Grasshopper"
-                <?php if (isset($_POST['flavors']) && in_array("The Grasshopper", $_POST['flavors']))
-                    echo 'checked'; ?> >The Grasshopper</p>
-        <p><input type="checkbox" name="flavors[]" value="Whiskey Maple Bacon"
-                <?php if (isset($_POST['flavors']) && in_array("Whiskey Maple Bacon", $_POST['flavors']))
-                    echo 'checked'; ?> >Whiskey Maple Bacon</p>
-        <p><input type="checkbox" name="flavors[]" value="Carrot Walnut"
-                <?php if (isset($_POST['flavors']) && in_array("Carrot Walnut", $_POST['flavors']))
-                    echo 'checked'; ?> >Carrot Walnut</p>
-        <p><input type="checkbox" name="flavors[]" value="Salted Caramel Cupcake"
-                <?php if (isset($_POST['flavors']) && in_array("Salted Caramel Cupcake", $_POST['flavors']))
-                    echo 'checked'; ?> >Salted Caramel Cupcake</p>
-        <p><input type="checkbox" name="flavors[]" value="Red Velvet"
-                <?php if (isset($_POST['flavors']) && in_array("Red Velvet", $_POST['flavors']))
-                    echo 'checked'; ?> >Red Velvet</p>
-        <p><input type="checkbox" name="flavors[]" value="Lemon Drop"
-                <?php if (isset($_POST['flavors']) && in_array("Lemon Drop", $_POST['flavors']))
-                    echo 'checked'; ?> >Lemon Drop</p>
-        <p><input type="checkbox" name="flavors[]" value="Tiramisu"
-                <?php if (isset($_POST['flavors']) && in_array("Tiramisu", $_POST['flavors']))
-                    echo 'checked'; ?> >Tiramisu</p>
+
+        <?php
+            $flavors = array("grasshopper" => "The Grasshopper",
+                             "maple" => "Whiskey Maple Bacon",
+                             "carrot" => "Carrot Walnut",
+                             "caramel" => "Salted Caramel Cupcake",
+                             "velvet" => "Red Velvet",
+                             "lemon" => "Lemon Drop",
+                             "tiramisu" => "Tiramisu");
+
+            foreach ($flavors as $flavor => $option)
+            {
+                echo '<div class="form-group">
+                        <div class="form-check">
+                            <label class="form-check-label" for="gridCheck">
+                                <input class="form-check-input" type="checkbox" name="flavor[]" value="'.$flavor.'"';
+                                if (isset($_POST['flavors']) && in_array($flavor, $_POST['flavors']))
+                                {
+                                    echo 'checked';
+                                }
+                                echo '>' . $option .
+
+                            '</label>' .
+                        '</div>'.
+                    '</div>';
+            }
+        ?>
 
         <p><input type="submit" class="btn btn-primary btn-sm" name="submit" value="Order"></p>
 
@@ -55,10 +61,3 @@
 </body>
 </html>
 
-<?php
-/**
- * Created by PhpStorm.
- * User: jrakk
- * Date: 4/3/2019
- * Time: 8:58 PM
- */
