@@ -57,7 +57,8 @@
 
     <?php
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
             $errors = [];
 
             if (empty($_POST['name']))
@@ -84,6 +85,17 @@
 
                 calculate();
             }
+
+            else
+            {
+                echo '<p>The following error(s) occurred:<br>';
+                foreach ($errors as $msg)
+                {
+                    echo ' - $msg<br>\n';
+                }
+                echo '</p><p>Please try again!</p>';
+            }
+
 
         }
 
