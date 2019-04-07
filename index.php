@@ -53,7 +53,25 @@
         ?>
 
         <p><input type="submit" class="btn btn-primary btn-sm" name="submit" value="Order"></p>
+    </form>
 
+    <?php
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $errors = [];
+
+            if (empty($_POST['name'])) {
+                $errors[] = "Please enter your name.";
+            } else {
+                $name = filter_var($_POST['name']);
+            }
+
+            if (empty($_POST['flavors'])) {
+                $errors[] = "Please pick your flavor!";
+            }
+
+        }
+    ?>
 
 
 </div>
