@@ -60,9 +60,12 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors = [];
 
-            if (empty($_POST['name'])) {
+            if (empty($_POST['name']))
+            {
                 $errors[] = "Please enter your name.";
-            } else {
+            }
+            else
+            {
                 $name = filter_var($_POST['name']);
             }
 
@@ -70,6 +73,28 @@
                 $errors[] = "Please pick your flavor!";
             }
 
+            if (empty($errors))
+            {
+                displayMessage();
+                echo '<p>Order Summary:</p><ul>';
+                foreach ($_POST['flavors'] as $option)
+                {
+                    echo '<li>$flavors[$option]</li></ul>';
+                }
+
+                calculate();
+            }
+
+        }
+
+        function displayMessage()
+        {
+            echo '<p>Thank you, ' . $_POST['name'] . ' for your order!</p>';
+        }
+
+        function calculate()
+        {
+            echo '<p>Order Total: $ ' . number_format(sizeof($_POST['flavors']) * 3.5, 2). '</p>';
         }
     ?>
 
