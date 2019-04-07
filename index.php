@@ -1,3 +1,10 @@
+<!--
+    Name: Jittima Goodrich
+    Date: 4/7/2019
+    URL: http://jgoodrich.greenriverdev.com/328/cupcakes/
+    This is a web page for a cupcake fundraiser.
+-->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -36,10 +43,10 @@
 
             foreach ($flavors as $flavor => $option)
             {
-                echo '<div class="form-group">
-                        <div class="form-check">
-                            <label class="form-check-label" for="gridCheck">
-                                <input class="form-check-input" type="checkbox" name="flavor[]" value="'.$flavor.'"';
+                echo '<div class="form-group">' .
+                        '<div class="form-check">' .
+                            '<label class="form-check-label">' .
+                                '<input class="form-check-input" type="checkbox" name="flavors[]" value="'.$flavor.'"';
                                 if (isset($_POST['flavors']) && in_array($flavor, $_POST['flavors']))
                                 {
                                     echo 'checked';
@@ -59,6 +66,7 @@
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
+            // Initialize an error array
             $errors = [];
 
             if (empty($_POST['name']))
@@ -70,7 +78,8 @@
                 $name = filter_var($_POST['name']);
             }
 
-            if (empty($_POST['flavors'])) {
+            if (empty($_POST['flavors']))
+            {
                 $errors[] = "Please pick your flavor!";
             }
 
@@ -78,38 +87,39 @@
             {
                 displayMessage();
                 echo '<p>Order Summary:</p><ul>';
+                // display the cupcakes
                 foreach ($_POST['flavors'] as $option)
                 {
-                    echo '<li>$flavors[$option]</li></ul>';
+                    echo "<li>$flavors[$option]</li>";
                 }
-
+                echo '</ul>';
                 calculate();
             }
 
             else
             {
                 echo '<p>The following error(s) occurred:<br>';
+                // print each error
                 foreach ($errors as $msg)
                 {
-                    echo ' - $msg<br>\n';
+                    echo " - $msg<br>\n";
                 }
                 echo '</p><p>Please try again!</p>';
             }
-
-
         }
 
+        // thank you message function
         function displayMessage()
         {
-            echo '<p>Thank you, ' . $_POST['name'] . ' for your order!</p>';
+            echo '<p>Thank you, ' . $_POST['name'] . ', for your order!</p>';
         }
 
+        // calculate the total price of cupcakes
         function calculate()
         {
             echo '<p>Order Total: $ ' . number_format(sizeof($_POST['flavors']) * 3.5, 2). '</p>';
         }
     ?>
-
 
 </div>
 
